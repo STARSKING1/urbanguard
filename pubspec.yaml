@@ -1,0 +1,39 @@
+name: urbanguard
+description: "UrbanGuard - Grid-Down Emergency Resilience & Offline Mesh Network"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Monetization Engine
+  purchases_flutter: ^8.0.0
+  purchases_ui_flutter: ^8.0.0
+
+  # Peer-to-Peer & Connectivity
+  flutter_nearby_connections: ^1.1.1
+  flutter_blue_plus: ^1.30.0
+
+  # Geospatial & State Management
+  flutter_map: ^7.0.0
+  latlong2: ^0.9.1
+  flutter_riverpod: ^2.5.1
+  supabase_flutter: ^2.5.0
+
+  # Utilities
+  cupertino_icons: ^1.0.8
+  shared_preferences: ^2.2.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/maps/
