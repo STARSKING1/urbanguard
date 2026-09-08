@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'core/services/revenuecat_service.dart';
+import 'features/hazard_feed/views/hazard_feed_screen.dart';
 import 'features/mesh_network/views/mesh_terminal_screen.dart';
 import 'features/monetization/views/paywall_view.dart';
 
@@ -41,10 +42,10 @@ class MainNavigationShell extends StatefulWidget {
 }
 
 class _MainNavigationShellState extends State<MainNavigationShell> {
-  int _currentIndex = 1;
+  int _currentIndex = 0;
 
   final List<Widget> _screens = const [
-    Center(child: Text('Hazard Feed & Risk Map', style: TextStyle(fontSize: 18))),
+    HazardFeedScreen(),
     MeshTerminalScreen(),
     PaywallViewScreen(),
   ];
