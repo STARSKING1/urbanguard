@@ -54,7 +54,7 @@ class _PaywallViewScreenState extends State<PaywallViewScreen> {
           : Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(
-                crossAxisAlignment: CrossAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Card(
                     color: const Color(0xFF1E293B),
@@ -70,7 +70,7 @@ class _PaywallViewScreenState extends State<PaywallViewScreen> {
                           ),
                           const SizedBox(width: 16),
                           Column(
-                            crossAxisAlignment: CrossAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 _isPro ? 'Status: Pro Active' : 'Status: Basic Tier',
@@ -135,7 +135,7 @@ class FeatureRow extends StatelessWidget {
           const SizedBox(width: 16),
           Expanded(
             child: Column(
-              crossAxisAlignment: CrossAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(title, style: const TextStyle(fontWeight: FontWeight.w600)),
                 Text(subtitle, style: const TextStyle(color: Colors.grey, fontSize: 12)),

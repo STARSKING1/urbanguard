@@ -64,8 +64,8 @@ class _HazardFeedScreenState extends State<HazardFeedScreen> {
                     radius: hazard['radius'] as double,
                     useRadiusInMeter: true,
                     color: isHigh
-                        ? Colors.red.withOpacity(0.35)
-                        : Colors.orange.withOpacity(0.35),
+                        ? Colors.red.withAlpha(90)
+                        : Colors.orange.withAlpha(90),
                     borderColor: isHigh ? Colors.red : Colors.orange,
                     borderStrokeWidth: 2.0,
                   );
@@ -102,13 +102,13 @@ class _HazardFeedScreenState extends State<HazardFeedScreen> {
                     width: 260,
                     margin: const EdgeInsets.only(right: 12),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF1E293B).withOpacity(0.95),
+                      color: const Color(0xFF1E293B).withAlpha(242),
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(color: Colors.white10),
                     ),
                     padding: const EdgeInsets.all(12),
                     child: Column(
-                      crossAxisAlignment: CrossAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Row(

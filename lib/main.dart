@@ -61,7 +61,7 @@ class _MainNavigationShellState extends State<MainNavigationShell> {
         selectedIndex: _currentIndex,
         onDestinationSelected: (index) => setState(() => _currentIndex = index),
         backgroundColor: const Color(0xFF1E293B),
-        indicatorColor: const Color(0xFF38BDF8).withOpacity(0.2),
+        indicatorColor: const Color(0xFF38BDF8).withAlpha(51),
         destinations: const [
           NavigationDestination(
             icon: Icon(Icons.radar),
