@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:urbanguard/main.dart';
@@ -68,8 +69,32 @@ class _MockHttpClientResponse implements HttpClientResponse {
 }
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   setUpAll(() {
     HttpOverrides.global = TestHttpOverrides();
+
+    // Mock Purchases/RevenueCat MethodChannel responses for test environment
+    const MethodChannel channel = MethodChannel('purchases_flutter');
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
+      if (methodCall.method == 'setupPurchases' ||
+          methodCall.method == 'setLogLevel') {
+        return null;
+      }
+      if (methodCall.method == 'getCustomerInfo') {
+        return {
+          'entitlements': {'all': {}},
+          'activeSubscriptions': [],
+          'allPurchasedProductIdentifiers': [],
+          'latestExpirationDate': null,
+          'firstSeen': '2026-01-01T00:00:00Z',
+          'originalAppUserId': 'test_user',
+          'requestDate': '2026-01-01T00:00:00Z',
+        };
+      }
+      return null;
+    });
   });
 
   testWidgets('UrbanGuard app Smoke Test', (WidgetTester tester) async {
