@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:urbanguard/core/providers/app_providers.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   group('MeshNotifier Tests', () {
     test('Initial mesh state should be inactive with 0 peers', () {
       final container = ProviderContainer();

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
@@ -5,7 +6,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:urbanguard/main.dart';
 
-/// Transparent 1x1 GIF bytes to satisfy flutter image loader during widget tests
 final Uint8List _transparentImage = Uint8List.fromList(<int>[
   0x47, 0x49, 0x46, 0x38, 0x39, 0x61, 0x01, 0x00, 0x01, 0x00,
   0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0x21,
@@ -79,10 +79,8 @@ void main() {
       ),
     );
 
-    // Pump frame without hanging on map tile network streams or animations
     await tester.pump(const Duration(milliseconds: 500));
 
-    // Verify shell render components
     expect(find.text('Live Risk Perimeter'), findsOneWidget);
     expect(find.byIcon(Icons.radar), findsOneWidget);
     expect(find.byIcon(Icons.hub_outlined), findsOneWidget);
