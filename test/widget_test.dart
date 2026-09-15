@@ -1,20 +1,75 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:urbanguard/main.dart';
 
-class MockHttpOverrides extends HttpOverrides {
+/// Transparent 1x1 GIF bytes to satisfy flutter image loader during widget tests
+final Uint8List _transparentImage = Uint8List.fromList(<int>[
+  0x47, 0x49, 0x46, 0x38, 0x39, 0x61, 0x01, 0x00, 0x01, 0x00,
+  0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0x21,
+  0xF9, 0x04, 0x01, 0x00, 0x00, 0x00, 0x00, 0x2C, 0x00, 0x00,
+  0x00, 0x00, 0x01, 0x00, 0x01, 0x00, 0x00, 0x02, 0x02, 0x44,
+  0x01, 0x00, 0x3B,
+]);
+
+class TestHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
-    return super.createHttpClient(context)
-      ..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+    return _MockHttpClient();
   }
+}
+
+class _MockHttpClient implements HttpClient {
+  @override
+  Future<HttpClientRequest> getUrl(Uri url) async => _MockHttpClientRequest();
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
+}
+
+class _MockHttpClientRequest implements HttpClientRequest {
+  @override
+  Future<HttpClientResponse> close() async => _MockHttpClientResponse();
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
+}
+
+class _MockHttpClientResponse implements HttpClientResponse {
+  @override
+  int get statusCode => 200;
+
+  @override
+  int get contentLength => _transparentImage.length;
+
+  @override
+  HttpClientResponseCompressionState get compressionState =>
+      HttpClientResponseCompressionState.notCompressed;
+
+  @override
+  StreamSubscription<Uint8List> listen(
+    void Function(Uint8List event)? onData, {
+    Function? onError,
+    void Function()? onDone,
+    bool? cancelOnError,
+  }) {
+    return Stream<Uint8List>.value(_transparentImage).listen(
+      onData,
+      onError: onError,
+      onDone: onDone,
+      cancelOnError: cancelOnError,
+    );
+  }
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }
 
 void main() {
   setUpAll(() {
-    HttpOverrides.global = MockHttpOverrides();
+    HttpOverrides.global = TestHttpOverrides();
   });
 
   testWidgets('UrbanGuard app Smoke Test', (WidgetTester tester) async {
@@ -23,9 +78,11 @@ void main() {
         child: UrbanGuardApp(),
       ),
     );
-    await tester.pumpAndSettle();
 
-    // Verify Main Shell and Hazard Feed elements render properly
+    // Pump frame without hanging on map tile network streams or animations
+    await tester.pump(const Duration(milliseconds: 500));
+
+    // Verify shell render components
     expect(find.text('Live Risk Perimeter'), findsOneWidget);
     expect(find.byIcon(Icons.radar), findsOneWidget);
     expect(find.byIcon(Icons.hub_outlined), findsOneWidget);
