@@ -3,8 +3,8 @@ import 'package:flutter/foundation.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 
 class RevenueCatService {
-  static const _apiKeyIOS = 'goog_revenuecat_ios_api_key_here';
-  static const _apiKeyAndroid = 'goog_revenuecat_android_api_key_here';
+  static const _apiKeyAndroid = 'entl9b27e83c00';
+  static const _apiKeyIOS = 'entl9b27e83c00';
 
   static Future<void> init() async {
     await Purchases.setLogLevel(LogLevel.debug);
@@ -26,7 +26,7 @@ class RevenueCatService {
       CustomerInfo customerInfo = await Purchases.getCustomerInfo();
       return customerInfo.entitlements.all['pro_access']?.isActive ?? false;
     } catch (e) {
-      debugPrint('Error fetching RevenueCat entitlement: $e');
+      if (kDebugMode) print("RevenueCat status error: $e");
       return false;
     }
   }
