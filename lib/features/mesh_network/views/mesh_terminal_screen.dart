@@ -48,7 +48,7 @@ class MeshTerminalScreen extends ConsumerWidget {
                     const Spacer(),
                     Switch(
                       value: meshState.isActive,
-                      activeColor: const Color(0xFF38BDF8),
+                      activeThumbColor: const Color(0xFF38BDF8),
                       onChanged: (val) => meshNotifier.toggleMesh(val),
                     ),
                   ],
