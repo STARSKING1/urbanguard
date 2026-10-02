@@ -1,0 +1,60 @@
+# Ignore all dotfiles and secrets (CRITICAL: prevents credential leaks)
+.*
+!.gitignore
+
+# Ignore unrelated personal scripts and data
+*.py
+*.c
+*.cpp
+*.txt
+*.gif
+*.xlsx
+*.csv
+*.json
+*.sarif
+a.out
+myprogram
+alla
+landing-page/
+downloads/
+storage/
+android/
+ios/
+models/
+personal_ai/
+q-shield-ecdat/
+urbanguard/
+__pycache__/
+
+# SQLite Databases & Dynamic State
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Logs & Temporary Files
+*.log
+*.tmp
+*.fifo
+api_server_output.log
+watchdog_activity.log
+sync_worker_activity.log
+production_launch.log
+
+# Backups & Compressed Releases
+*.tar.gz
+*.sha256
+*.enc
+backups/
+urbanguard_release_*/
+
+# External Toolchains & Caches
+flutter/
+llama.cpp/
+.cargo/
+.rustup/
+.pub-cache/
+.local/
+.config/
+.cache/
+.termux/
