@@ -1,10 +1,8 @@
-# Ignore all dotfiles and secrets (CRITICAL: prevents credential leaks)
 .*
-!.github/
-!.github/
 !.gitignore
+!.github/
+!assets/
 
-# Ignore unrelated personal scripts and data
 *.py
 *.c
 *.cpp
@@ -28,13 +26,11 @@ q-shield-ecdat/
 urbanguard/
 __pycache__/
 
-# SQLite Databases & Dynamic State
 *.db
 *.db-journal
 *.db-wal
 *.db-shm
 
-# Logs & Temporary Files
 *.log
 *.tmp
 *.fifo
@@ -43,14 +39,12 @@ watchdog_activity.log
 sync_worker_activity.log
 production_launch.log
 
-# Backups & Compressed Releases
 *.tar.gz
 *.sha256
 *.enc
 backups/
 urbanguard_release_*/
 
-# External Toolchains & Caches
 flutter/
 llama.cpp/
 .cargo/
