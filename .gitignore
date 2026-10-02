@@ -1,6 +1,7 @@
 # Ignore all dotfiles and secrets (CRITICAL: prevents credential leaks)
 .*
 !.github/
+!.github/
 !.gitignore
 
 # Ignore unrelated personal scripts and data
